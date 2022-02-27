@@ -24,7 +24,7 @@ const struct NOTE_ALIAS NOTES[] = {
 
 const size_t NUM_NOTES = (sizeof(NOTES) / sizeof(NOTES[0]));
 
-struct NOTE_ALIAS* next_note(char* note)
+char* next_note(char* note)
 {
 	for (size_t note_idx = 0; note_idx < NUM_NOTES; note_idx++)
 	{
@@ -49,7 +49,7 @@ guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char
 			else
 			{
 				this.freq[fret_idx][string_idx] = this.freq[fret_idx - 1][string_idx] * 1.0595f;
-				this.note[fret_idx][string_idx] = next_note(this.note[fret_idx - 1][string_idx];
+				this.note[fret_idx][string_idx] = next_note(this.note[fret_idx - 1][string_idx]);
 			}
 		}
 	}
