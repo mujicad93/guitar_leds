@@ -38,8 +38,10 @@ const char* next_note(const char* const note)
 	}
 }
 
-void guitar_leds::init(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS])
+void guitar_leds::init(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa102_in)
 {
+	p_apa102 = p_apa102_in;
+
 	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
 	{
 		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
@@ -75,4 +77,9 @@ void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t va
 			}
 		}
 	}
+}
+
+void guitar_leds::set_leds(void)
+{
+	p_apa102->set_leds(&led[0][0], sizeof(led));
 }
