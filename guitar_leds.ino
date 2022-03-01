@@ -34,15 +34,15 @@ void loop() {
 	Guitar_leds.set_leds();
 	delay(1000);
 
-	Guitar_leds.set_all_notes("G", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Guitar_leds.set_all_notes("G#", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
 	Guitar_leds.set_leds();
 	delay(1000);
 
-	Guitar_leds.set_all_notes("B", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Guitar_leds.set_all_notes("Bb", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
 	Guitar_leds.set_leds();
 	delay(1000);
 
-	Guitar_leds.set_all_notes("E", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Guitar_leds.set_all_notes("eb", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
 	Guitar_leds.set_leds();
 	delay(1000);
 
