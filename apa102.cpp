@@ -15,11 +15,14 @@ void apa102::set_leds(apa102_led_t* const led_value, size_t num_leds)
 
 	for (int led_idx = 0; led_idx < num_leds; led_idx++)
 	{
-		uint8_t brightness = (~BRIGHTNESS_MASK | (led_value[led_idx].led.brightness & BRIGHTNESS_MASK));
-		send_bytes((uint8_t*)&brightness, 1);
-		send_bytes((uint8_t*)&led_value[led_idx].led.blue, 1);
-		send_bytes((uint8_t*)&led_value[led_idx].led.green, 1);
-		send_bytes((uint8_t*)&led_value[led_idx].led.red, 1);
+		uint8_t color = (~BRIGHTNESS_MASK | (led_value[led_idx].led.brightness & BRIGHTNESS_MASK));
+		send_bytes((uint8_t*)&color, 1);
+		color = led_value[led_idx].led.blue;
+		send_bytes((uint8_t*)&color, 1);
+		color = led_value[led_idx].led.green;
+		send_bytes((uint8_t*)&color, 1);
+		color = led_value[led_idx].led.red;
+		send_bytes((uint8_t*)&color, 1);
 	}
 
 	word = END_FRAME;
