@@ -55,7 +55,7 @@ guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char
 				note[fret_idx][string_idx] = next_note(note[fret_idx - 1][string_idx]);
 			}
 
-			led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = 0 } };
+			led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
 		}
 	}
 }
@@ -71,7 +71,7 @@ void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t va
 			else
 			{
 				if (clear_others)
-					led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = 0 } };
+					led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
 			}
 		}
 	}

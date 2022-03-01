@@ -10,6 +10,7 @@ class guitar_leds {
 public:
 	const static size_t NUM_FRETS = 4;
 	const static size_t NUM_STRINGS = 6;
+	const static uint8_t DEFAULT_BRIGHTNESS = 5;
 
 	guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS]);
 
