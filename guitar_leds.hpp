@@ -25,7 +25,7 @@ public:
 	 * @input value - Value to set LED to
 	 * @input clear_others - Flag to clear all non-matching frets
 	 */
-	void set_all_notes(const char* const note_in, const apa102_led_t value, const bool clear_others);
+	void set_note(const char* const note_in, const apa102_led_t value, const bool clear_others);
 
 	/*
 	 * @brief Set fret matching frequency
@@ -52,9 +52,20 @@ public:
 	void set_chord(const size_t fret[NUM_STRINGS], const apa102_led_t value);
 
 	/*
+	 * @brief Set all LEDs to @value
+	 * @input value - Value to set LED to
+	 */
+	void set_all(const apa102_led_t value);
+
+	/*
+	 * @brief Set all LEDs to 0
+	 */
+	void clear_all(void);
+
+	/*
 	 * @brief Set leds once matrix has been filled
 	 */
-	void set_leds(void);
+	void update_leds(void);
 
 private:
 	apa102* p_apa102;

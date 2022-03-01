@@ -64,7 +64,7 @@ guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char
 	}
 }
 
-void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t value, const bool clear_others)
+void guitar_leds::set_note(const char* const note_in, const apa102_led_t value, const bool clear_others)
 {
 	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
 	{
@@ -128,7 +128,29 @@ void guitar_leds::set_chord(const size_t fret[NUM_STRINGS], const apa102_led_t v
 	}
 }
 
-void guitar_leds::set_leds(void)
+void guitar_leds::set_all(const apa102_led_t value)
+{
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+	{
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+		{
+			led[fret_idx][string_idx] = value;
+		}
+	}
+}
+
+void guitar_leds::clear_all(void)
+{
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+	{
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+		{
+			led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
+		}
+	}
+}
+
+void guitar_leds::update_leds(void)
 {
 	p_apa102->set_leds(&led[0][0], sizeof(led));
 }
