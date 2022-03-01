@@ -1,11 +1,14 @@
 #include "guitar_leds.hpp"
 
 #include <string.h>
+#include <math.h>
+
+const float EQUAL_TEMPERAMENT_RATIO = pow(sqrt(2), -12); // 12√2
 
 struct NOTE_ALIAS {
-	char* sharp;
-	char* flat;
-}
+	const char* sharp;
+	const char* flat;
+};
 
 const struct NOTE_ALIAS NOTES[] = {
 	{"A", "A"},
@@ -24,32 +27,51 @@ const struct NOTE_ALIAS NOTES[] = {
 
 const size_t NUM_NOTES = (sizeof(NOTES) / sizeof(NOTES[0]));
 
-char* next_note(char* note)
+const char* next_note(const char* const note)
 {
 	for (size_t note_idx = 0; note_idx < NUM_NOTES; note_idx++)
 	{
-		if (strcasecmp(note, NOTES[note_idx][0]))
-			return NOTES[(note_idx + 1) % NUM_NOTES][0];
-		else if (strcasecmp(note, NOTES[note_idx][1]))
-			return NOTES[(note_idx + 1) % NUM_NOTES][1];
+		if (strcasecmp(note, NOTES[note_idx].sharp) == 0)
+			return NOTES[(note_idx + 1) % NUM_NOTES].sharp;
+		else if (strcasecmp(note, NOTES[note_idx].flat) == 0)
+			return NOTES[(note_idx + 1) % NUM_NOTES].flat;
 	}
 }
 
-guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char* starting_note[NUM_STRINGS])
+guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS])
 {
-	for (size_t string_idx = 0; string_idx < this.NUM_STRINGS; string_idx++)
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
 	{
-		for (size_t fret_idx = 0; fret_idx < this.NUM_FRETS; fret_idx++)
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
 		{
 			if (fret_idx == 0)
 			{
-				this.freq[fret_idx][string_idx] = starting_frequency[string_idx];
-				this.note[fret_idx][string_idx] = starting_note[string_idx];
+				freq[fret_idx][string_idx] = starting_frequency[string_idx];
+				note[fret_idx][string_idx] = starting_note[string_idx];
 			}
 			else
 			{
-				this.freq[fret_idx][string_idx] = this.freq[fret_idx - 1][string_idx] * 1.0595f;
-				this.note[fret_idx][string_idx] = next_note(this.note[fret_idx - 1][string_idx]);
+				freq[fret_idx][string_idx] = freq[fret_idx - 1][string_idx] * EQUAL_TEMPERAMENT_RATIO;
+				note[fret_idx][string_idx] = next_note(note[fret_idx - 1][string_idx]);
+			}
+
+			led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = 0 } };
+		}
+	}
+}
+
+void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t value, const bool clear_others)
+{
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+	{
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+		{
+			if (strcasecmp(note_in, note[fret_idx][string_idx]) == 0)
+				led[fret_idx][string_idx] = value;
+			else
+			{
+				if (clear_others)
+					led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = 0 } };
 			}
 		}
 	}
