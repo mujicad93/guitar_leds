@@ -6,6 +6,11 @@
 
 #include "apa102.hpp"
 
+struct note_alias {
+	const char* sharp;
+	const char* flat;
+};
+
 class guitar_leds {
 public:
 	const static size_t NUM_FRETS = 4;
@@ -24,10 +29,12 @@ public:
 	 */
 	void set_leds(void);
 
+private:
 	apa102* p_apa102;
 	apa102_led_t led[NUM_FRETS][NUM_STRINGS];
+
 	float freq[NUM_FRETS][NUM_STRINGS];
-	const char* note[NUM_FRETS][NUM_STRINGS];
+	const struct note_alias* note[NUM_FRETS][NUM_STRINGS];
 };
 
 #endif
