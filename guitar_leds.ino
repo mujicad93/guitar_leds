@@ -4,9 +4,6 @@
 
 #define VERBOSE (false)
 
-apa102 Apa102;
-guitar_leds Guitar_leds;
-
 const char* STARTING_NOTES[] = { "E", "A", "D", "G", "B", "E" };
 const float STARTING_FREQ[] = { 82.41f, 110.f, 146.83f, 196.f, 246.94f, 329.63f };
 
@@ -16,24 +13,12 @@ void init_apa102_comm(void)
 	SPI.beginTransaction(SPISettings(16000000, MSBFIRST, SPI_MODE0));
 }
 
+apa102 Apa102(init_apa102_comm, SPI.transfer);
+guitar_leds Guitar_leds(STARTING_FREQ, STARTING_NOTES, &Apa102);
+
 void setup() {
-#if VERBOSE
-	Serial.begin(115200);
-	Serial.println("Start");
-#endif
-
-	Apa102.init(init_apa102_comm, SPI.transfer);
-	Guitar_leds.init(STARTING_FREQ, STARTING_NOTES, &Apa102);
-
-#if VERBOSE
-	Serial.println("Initialized");
-#endif
-
+	// Delay for SPI startup
 	delay(5000);
-
-#if VERBOSE
-	Serial.println("Entering Loop");
-#endif
 }
 
 void loop() {

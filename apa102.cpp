@@ -1,6 +1,6 @@
 #include "apa102.hpp"
 
-void apa102::init(void(*init_comm)(void), void(*send_bytes_in)(void* val, size_t len))
+apa102::apa102(void(*init_comm)(void), void(*send_bytes_in)(void* val, size_t len))
 {
 	init_comm();
 	send_bytes = send_bytes_in;

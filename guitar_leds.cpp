@@ -38,7 +38,7 @@ const char* next_note(const char* const note)
 	}
 }
 
-void guitar_leds::init(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa102_in)
+guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa102_in)
 {
 	p_apa102 = p_apa102_in;
 

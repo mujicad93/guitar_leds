@@ -12,7 +12,7 @@ public:
 	const static size_t NUM_STRINGS = 6;
 	const static uint8_t DEFAULT_BRIGHTNESS = 1;
 
-	void init(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa_102_in);
+	guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa_102_in);
 
 	/*
 	 * @brief Set all notes to value (with option to clear all other notes)
