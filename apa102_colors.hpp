@@ -13,6 +13,7 @@
 #define PURPLE(x) ((apa102_led_t) {.led = {.red = 0xFF, .green = 0,    .blue = 0xFF, .brightness=(x)}})
 #define TEAL(x) ((apa102_led_t)   {.led = {.red = 0,    .green = 0xFF, .blue = 0xFF, .brightness=(x)}})
 #define YELLOW(x) ((apa102_led_t) {.led = {.red = 0xFF, .green = 0xFF, .blue = 0,    .brightness=(x)}})
+#define ORANGE(x) ((apa102_led_t) {.led = {.red = 0xFF, .green = 0x3F, .blue = 0,    .brightness=(x)}})
 #define WHITE(x) ((apa102_led_t)  {.led = {.red = 0xFF, .green = 0xFF, .blue = 0xFF, .brightness=(x)}})
 
 #endif

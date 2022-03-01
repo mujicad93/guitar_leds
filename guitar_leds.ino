@@ -86,4 +86,8 @@ void loop() {
 	Guitar_leds.set_chord(A_MAJ_CHORD, YELLOW(BRIGHT));
 	Guitar_leds.set_leds();
 	delay(3000);
+
+	Guitar_leds.set_chord(D_MAJ_CHORD, ORANGE(BRIGHT));
+	Guitar_leds.set_leds();
+	delay(3000);
 }
