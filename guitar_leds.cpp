@@ -3,7 +3,8 @@
 #include <string.h>
 #include <math.h>
 
-const float EQUAL_TEMPERAMENT_RATIO = pow(sqrt(2), -12); // 12√2
+const float EQUAL_TEMPERAMENT_RATIO = pow(2., (1. / 12.)); // 12√2
+const float FUZZY_EQUAL_TEMPERAMENT_RATIO = EQUAL_TEMPERAMENT_RATIO - 0.001f;
 const struct note_alias NOTES[] = {
 	{"A", "A"},
 	{"A#", "Bb"},
@@ -78,6 +79,39 @@ void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t va
 			}
 		}
 	}
+}
+
+void guitar_leds::set_freq(const float freq_in, const apa102_led_t value, const bool clear_others)
+{
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+	{
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+		{
+			if (freq[fret_idx][string_idx] > (freq_in / FUZZY_EQUAL_TEMPERAMENT_RATIO) && freq[fret_idx][string_idx] < (freq_in * FUZZY_EQUAL_TEMPERAMENT_RATIO))
+				led[fret_idx][string_idx] = value;
+			else
+			{
+				if (clear_others)
+					led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
+			}
+		}
+	}
+}
+
+void guitar_leds::set_fret(const size_t fret_idx, const size_t string_idx, const apa102_led_t value, const bool clear_others)
+{
+	if (clear_others)
+	{
+		for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+		{
+			for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+			{
+				led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
+			}
+		}
+	}
+
+	led[fret_idx][string_idx] = value;
 }
 
 void guitar_leds::set_leds(void)

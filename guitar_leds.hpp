@@ -20,9 +20,29 @@ public:
 	guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS], apa102* p_apa_102_in);
 
 	/*
-	 * @brief Set all notes to value (with option to clear all other notes)
+	 * @brief Set all notes to value
+	 * @input note_in - String representation of note to set
+	 * @input value - Value to set LED to
+	 * @input clear_others - Flag to clear all non-matching frets
 	 */
 	void set_all_notes(const char* const note_in, const apa102_led_t value, const bool clear_others);
+
+	/*
+	 * @brief Set fret matching frequency
+	 * @input freq_in - Frequency of note to set
+	 * @input value - Value to set LED to
+	 * @input clear_others - Flag to clear all non-matching frets
+	 */
+	void set_freq(const float freq_in, const apa102_led_t value, const bool clear_others);
+
+	/*
+	 * @brief Set specific fret
+	 * @input fret_idx - Which fret to set
+	 * @input string_idx - Which string to set
+	 * @input value - Value to set LED to
+	 * @input clear_others - Flag to clear all non-matching frets
+	 */
+	void set_fret(const size_t fret_idx, const size_t string_idx, const apa102_led_t value, const bool clear_others);
 
 	/*
 	 * @brief Set leds once matrix has been filled
