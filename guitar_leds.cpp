@@ -114,6 +114,20 @@ void guitar_leds::set_fret(const size_t fret_idx, const size_t string_idx, const
 	led[fret_idx][string_idx] = value;
 }
 
+void guitar_leds::set_chord(const size_t fret[NUM_STRINGS], const apa102_led_t value)
+{
+	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
+	{
+		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
+		{
+			if (fret[string_idx] == fret_idx)
+				led[fret_idx][string_idx] = value;
+			else
+				led[fret_idx][string_idx] = (apa102_led_t){ .led = {.red = 0, .green = 0, .blue = 0, .brightness = DEFAULT_BRIGHTNESS } };
+		}
+	}
+}
+
 void guitar_leds::set_leds(void)
 {
 	p_apa102->set_leds(&led[0][0], sizeof(led));

@@ -45,6 +45,13 @@ public:
 	void set_fret(const size_t fret_idx, const size_t string_idx, const apa102_led_t value, const bool clear_others);
 
 	/*
+	 * @brief Set chord
+	 * @input fret_idx[NUM_STRINGS] - Fret to set on each string (set to NUM_FRETS if you want it blank)
+	 * @input value - Value to set LED to
+	 */
+	void set_chord(const size_t fret[NUM_STRINGS], const apa102_led_t value);
+
+	/*
 	 * @brief Set leds once matrix has been filled
 	 */
 	void set_leds(void);

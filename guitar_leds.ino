@@ -1,6 +1,7 @@
 #include <SPI.h>
 
 #include "guitar_leds.hpp"
+#include "guitar_chords.hpp"
 
 #define VERBOSE (false)
 
@@ -69,4 +70,12 @@ void loop() {
 	Guitar_leds.set_fret(3, 3, (apa102_led_t) { .led = { .red = 0xFF, .green = 0xFF, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
 	Guitar_leds.set_leds();
 	delay(1000);
+
+	Guitar_leds.set_chord(G_MAJ_CHORD, (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } });
+	Guitar_leds.set_leds();
+	delay(3000);
+
+	Guitar_leds.set_chord(A_MIN_CHORD, (apa102_led_t) { .led = { .red = 0, .green = 0xFF, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } });
+	Guitar_leds.set_leds();
+	delay(3000);
 }
