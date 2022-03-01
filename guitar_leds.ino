@@ -4,8 +4,8 @@
 
 #define VERBOSE (false)
 
-apa102* p_apa102;
-guitar_leds* p_guitar_leds;
+apa102 Apa102;
+guitar_leds Guitar_leds;
 
 const char* STARTING_NOTES[] = { "E", "A", "D", "G", "B", "E" };
 const float STARTING_FREQ[] = { 82.41f, 110.f, 146.83f, 196.f, 246.94f, 329.63f };
@@ -22,8 +22,8 @@ void setup() {
 	Serial.println("Start");
 #endif
 
-	p_apa102 = new apa102(init_apa102_comm, SPI.transfer);
-	p_guitar_leds = new guitar_leds(STARTING_FREQ, STARTING_NOTES);
+	Apa102.init(init_apa102_comm, SPI.transfer);
+	Guitar_leds.init(STARTING_FREQ, STARTING_NOTES);
 
 #if VERBOSE
 	Serial.println("Initialized");
@@ -37,45 +37,45 @@ void setup() {
 }
 
 void loop() {
-	p_guitar_leds->set_all_notes("E", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("E", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set All Es to red");
 #endif
-	delay(1000);
+	delay(250);
 
-	p_guitar_leds->set_all_notes("A", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, false);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("A", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, false);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set All As to red");
 #endif
-	delay(1000);
+	delay(250);
 
-	p_guitar_leds->set_all_notes("D", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, false);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("D", (apa102_led_t) { .led = { .red = 0xFF, .green = 0, .blue = 0, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, false);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set All Ds to red");
 #endif
-	delay(1000);
+	delay(250);
 
-	p_guitar_leds->set_all_notes("G", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("G", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set only Es to blue");
 #endif
-	delay(1000);
+	delay(250);
 
-	p_guitar_leds->set_all_notes("B", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("B", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set only As to blue");
 #endif
-	delay(1000);
+	delay(250);
 
-	p_guitar_leds->set_all_notes("E", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
-	p_apa102->set_leds(&p_guitar_leds->led[0][0], sizeof(guitar_leds::led));
+	Guitar_leds.set_all_notes("E", (apa102_led_t) { .led = { .red = 0, .green = 0, .blue = 0xFF, .brightness = guitar_leds::DEFAULT_BRIGHTNESS } }, true);
+	Apa102.set_leds(&Guitar_leds.led[0][0], sizeof(guitar_leds::led));
 #if VERBOSE
 	Serial.println("Set only Ds to blue");
 #endif
-	delay(1000);
+	delay(250);
 }

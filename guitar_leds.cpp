@@ -38,7 +38,7 @@ const char* next_note(const char* const note)
 	}
 }
 
-guitar_leds::guitar_leds(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS])
+void guitar_leds::init(const float starting_frequency[NUM_STRINGS], const char* const starting_note[NUM_STRINGS])
 {
 	for (size_t string_idx = 0; string_idx < NUM_STRINGS; string_idx++)
 	{
@@ -66,7 +66,7 @@ void guitar_leds::set_all_notes(const char* const note_in, const apa102_led_t va
 	{
 		for (size_t fret_idx = 0; fret_idx < NUM_FRETS; fret_idx++)
 		{
-			if (strcasecmp(note_in, note[fret_idx][string_idx]) == 0)
+			if (strcasecmp(note[fret_idx][string_idx], note_in) == 0)
 				led[fret_idx][string_idx] = value;
 			else
 			{

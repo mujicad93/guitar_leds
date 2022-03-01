@@ -25,7 +25,7 @@ public:
 	/*
 	 * @brief Initialize APA102 communication (user must provide init function and send_bytes function)
 	 */
-	apa102(void(*init_comm)(void), void(*send_bytes)(void* val, size_t len));
+	void init(void(*init_comm)(void), void(*send_bytes)(void* val, size_t len));
 
 	/*
 	* @brief Set LED values
